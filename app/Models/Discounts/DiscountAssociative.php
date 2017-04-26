@@ -14,7 +14,8 @@ class DiscountAssociative implements DiscountInterface {
     protected $group;
     protected $description;
 
-    public function __construct($product, $decreaseValue, $group) {
+    public function __construct($product, $decreaseValue, $group, $description) {
+        $this->description = $description;
         $this->product = $product;
         $this->decreaseValue = $decreaseValue;
         $this->group = $group;

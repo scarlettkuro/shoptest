@@ -17,8 +17,11 @@ class Cart {
                 'products' => []
             ];
         }
-        
         $this->discounts = [];
+    }
+    
+    public function addDiscount($discount) {
+        $this->discounts[] = $discount;
     }
 
     public function addProduct($product) {

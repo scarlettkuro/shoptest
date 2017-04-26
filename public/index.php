@@ -11,6 +11,7 @@ $params = [
 
 $app = new App($params);
 $app->addComponent('dao', new DAO(parse_ini_file(__DIR__.'/../db.ini')));
+$app->addComponent('cart', require(__DIR__ . '/../cart.php'));
 
 $app->addRoutes([
     '/' => [\App\Controllers\Index::class, 'index'],

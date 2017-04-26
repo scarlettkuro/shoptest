@@ -8,6 +8,7 @@
                 <thead class="thead-inverse">
                     <tr>
                       <th>Товар</th>
+                      <th>Полная стоимость</th>
                       <th>Стоимость</th>
                       <th>Скидки</th>
                       <th></th>
@@ -17,6 +18,7 @@
                     <?php foreach($cart->getProducts() as $product) : ?>
                         <tr>
                             <th scope="row"><?=$product->title?></th>
+                            <td><?=$product->price?></td>
                             <td><?=$product->getPriceWithDiscount()?></td>
                             <td>
                             <?php if ($product->discount) : ?>

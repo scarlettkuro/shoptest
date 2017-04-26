@@ -11,13 +11,13 @@ class Index {
         
         $view = new \App\View();
         return $view->render('index.htm.php', [
-            'cart' => new \App\Models\Cart(),
+            'cart' => App::app()->component('cart'),
             'products' => $products
         ]);
     }
 
     public static function cart() {
-        $cart = new \App\Models\Cart();
+        $cart = App::app()->component('cart');
         $cart->applyDiscounts();
         
         $view = new \App\View();
@@ -27,14 +27,14 @@ class Index {
     }
 
     public static function add($id) {
-        $cart = new \App\Models\Cart();
+        $cart = App::app()->component('cart');
         $productDAO = App::app()->component('dao')->getModelDAO(\App\Models\Product::class);
         $cart->addProduct($productDAO->read($id));
         App::app()->component('router')->redirect('/');
     }
 
     public static function remove($id) {
-        $cart = new \App\Models\Cart();
+        $cart = App::app()->component('cart');
         $productDAO = App::app()->component('dao')->getModelDAO(\App\Models\Product::class);
         $cart->removeProduct($productDAO->read($id));
         App::app()->component('router')->redirect('/cart');

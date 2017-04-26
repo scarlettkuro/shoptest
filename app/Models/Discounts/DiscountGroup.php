@@ -14,7 +14,8 @@ class DiscountGroup implements DiscountInterface {
     protected $group;
     protected $description;
 
-    public function __construct($decreaseValue, $group) {
+    public function __construct($decreaseValue, $group, $description) {
+        $this->description = $description;
         $this->decreaseValue = $decreaseValue;
         $this->group = $group;
     }

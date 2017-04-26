@@ -15,8 +15,8 @@ class DiscountTotal implements DiscountInterface {
     public $excludeProducts;
     protected $description;
 
-    public function __construct($decreaseValue, $excludeProducts) {
-        $this->decreaseValue = $decreaseValue;
+    public function __construct($excludeProducts, $description) {
+        $this->description = $description;
         $this->excludeProducts = $excludeProducts;
     }
     
