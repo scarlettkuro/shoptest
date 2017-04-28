@@ -14,10 +14,15 @@ class DiscountGroup implements DiscountInterface {
     protected $group;
     protected $description;
 
-    public function __construct($decreaseValue, $group, $description) {
+    public function __construct($decreaseValue, $group, $description = "") {
         $this->description = $description;
         $this->decreaseValue = $decreaseValue;
-        $this->group = $group;
+        
+        if (count(array_unique($group)) != count($group)) {
+            throw new DiscountConditionContainDuplicatesException();
+        }
+        
+        $this->group = array_unique($group);
     }
     
     public function apply($products) {        
@@ -63,3 +68,5 @@ class DiscountGroup implements DiscountInterface {
     }
 
 }
+
+class DiscountConditionContainDuplicatesException extends \Exception{}

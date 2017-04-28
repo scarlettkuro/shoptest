@@ -21,27 +21,26 @@ class DiscountTotal implements DiscountInterface {
     }
     
     public function apply($products) {
-        $discountProducts = [];
+        $discountProductsKeys = [];
         
         foreach($products as $productKey => $product) {
-            $include = array_reduce($this->excludeProducts, function($include, $excludeProduct) use ($product) {
-                return $include && ($product->title == $excludeProduct);
-            }, true);
-            if (!$include) continue;
-            $discountProducts[] = $product;
-            unset($products[$productKey]);
-            
-            if (count($discountProducts) == 5) break;
+            if (!in_array($product->title, $this->excludeProducts)) {
+                $discountProductsKeys[] = $productKey;
+                if (count($discountProductsKeys) == 5) break;
+            }
         }
         
-        switch (count($discountProducts)) {
+        switch (count($discountProductsKeys)) {
             case 3: $this->decreaseValue = -0.05; break;
             case 4: $this->decreaseValue = -0.1; break;
             case 5: $this->decreaseValue = -0.2; break;
+            default: return $products;
         }
         
-        foreach($discountProducts as $discountProduct) {
+        foreach($discountProductsKeys as $discountProductKey) {
+            $discountProduct = $products[$discountProductKey];
             $discountProduct->discount = $this;
+            unset($products[$discountProductKey]);
         }
         
         return $products;

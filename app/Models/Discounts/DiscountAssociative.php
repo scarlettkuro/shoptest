@@ -18,6 +18,11 @@ class DiscountAssociative implements DiscountInterface {
         $this->description = $description;
         $this->product = $product;
         $this->decreaseValue = $decreaseValue;
+        
+        if (in_array($product, $group)) {
+            throw new DiscountConditionSelfReferenceException();
+        }
+        
         $this->group = $group;
     }
     
@@ -58,3 +63,5 @@ class DiscountAssociative implements DiscountInterface {
     }
 
 }
+
+class DiscountConditionSelfReferenceException extends \Exception{}
